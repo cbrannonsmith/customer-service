@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const MongoDBUtil = require('./modules/mongodb/mongodb.module').MongoDBUtil;
 
 const app = express();
 
@@ -10,6 +11,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
+
+MongoDBUtil.init();
 
 app.get('/', function(req, res) {
   const pkg = require(path.join(__dirname, 'package.json'));
